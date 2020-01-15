@@ -3,6 +3,10 @@
   padding: 0;
 }
 
+h1,h2,h3,h4,a{
+  text-decoration: none;
+}
+
 button {
   border: 0;
   background-color: transparent;
@@ -18,6 +22,7 @@ body {
 body {
   display: flex;
   flex-direction: column;
+  align-items: center;
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -60,6 +65,55 @@ body {
   margin-right: 30px;
 }
 
-.movie-container{
+/* movie-container */
+.movie-container {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-top: 40px;
+  font-size: 12px;
+}
+
+.movie-name {
+  font-size: 24px;
+  align-self: flex-start;
+}
+
+/* movie-general */
+.movie-general {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.movie-pic {
+  margin: 5px 200px 5px 10px;
+  width: 120px;
+}
+
+.movie-metadata {
+  flex: 1;
+  font-size: 14px;
+}
+
+.watch-online-btn {
+  box-sizing: border-box;
+  padding: 4px 10px;
+  background: #4668b9;
+  border-radius: 3px;
+
+}
+
+.movie-links {
+  margin-right: 8px;
+}
+
+/* TODO li 的点超出盒子范围 */
+.movie-links li {
+  margin-left: 10px;
+}
+
+.movie-links a {
+  margin: 0 20px 0 0;
 }
