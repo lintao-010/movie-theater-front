@@ -1,0 +1,65 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  border: 0;
+  background-color: transparent;
+  outline: none;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* header section */
+.page-header {
+  position: fixed;
+  background-color: black;
+  color: white;
+  height: 40px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.tw-logo {
+  margin-left: 20px;
+  width: 35px;
+}
+
+.tw-name {
+  font-size: 26px;
+}
+
+#search-box {
+  display: inline-block;
+  box-sizing: border-box;
+  height: 26px;
+  width: 150px;
+  margin: 0 7px 0 auto;
+  border-radius: 3px;
+}
+
+#search-btn {
+  background: #fff;
+  display: inline-block;
+  height: 26px;
+  width: 40px;
+  text-align: center;
+  border-radius: 3px;
+  margin-right: 30px;
+}
+
+.movie-container{
+  margin-top: 40px;
+}
