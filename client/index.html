@@ -4,9 +4,129 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <meta name="referrer" content="no-referrer">
+  <title>ThoughtWorksTheater</title>
+  <style>
+    .header {
+      display: flex;
+      justify-content: center;
+      margin: 0 auto;
+      width: 1000px;
+      margin-bottom: 50px;
+      margin-top: 20px;
+    }
+    .header-tw-logo img{
+      width: 160px;
+      margin-right: 120px;
+    } 
+    .header-right {
+      text-align: center;
+    }
+    .header-search {
+      
+    }
+    .header-search .search-input{
+      height:30px;
+      width: 600px;
+    }
+    .header-search .search-button{
+      height: 30px;
+    }
+    .header-genre {
+      margin-top: 40px;
+    }
+    .header-genre ul{
+      list-style: none;
+      white-space: nowrap;
+    }
+    .header-genre li{
+      display: inline-block;
+      margin: 0 10px;
+      font-size: 16px;
+    }
+    .header-genre-title{
+      float: left;
+      padding-top: 20px;
+      margin-left: 20px;
+      font-size: 22px;
+    }
+    .all-movies {
+      width: 1000px;
+      margin: 0 auto;
+      height: 100%;
+    }
+    .movie-stories {
+      margin: 0 auto;
+      display: grid;
+      width: 1000px;
+      height: auto;
+      grid-template-rows: repeat(4, 330px);
+      grid-template-columns: repeat(5, 180px);
+      grid-row-gap: 10px;
+      grid-column-gap: 20px;
+      grid-auto-flow: row;
+    }
+    .movie-item {
+      font-size: 14px;
+      text-align: center;
+    }
+    .movie-item img {
+      width: 180px;
+    }
+    .movie-item p {
+      margin: 0;
+    }
+    .movie-info{
+      
+    }
+    .next-page {
+      float: right;
+      margin-right: 10px;
+    }
+  </style>
 </head>
 <body>
-  
+  <div class="header">
+    <div class="header-tw-logo">
+      <img src="../src/movie-logo.png" alt="tw-theater-logo">
+    </div>
+    <div class="header-right">
+      <div class="header-search">
+        <input class="search-input" type="text" value="请输入电影名称">
+        <input class="search-button" type="button" value="搜索">
+      </div>
+      <div class="header-genre">
+        <div class="header-genre-title">分类</div>
+        <ul>
+          <li>爱情</li>
+          <li>悬疑</li>
+          <li>动作</li>
+          <li>战争</li>
+          <li>历史</li>
+          <li>科幻</li>
+          <li>青春</li>
+          <li>心理</li>
+        </ul>
+        
+        <ul>
+          <li>儿童</li>
+          <li>冒险</li>
+          <li>漫画</li>
+          <li>体育</li>
+          <li>纪录</li>
+          <li>惊悚</li>
+          <li>搞笑</li>
+          <li>犯罪</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="all-movies">
+    <div class="movie-stories" id="movie-table"></div>
+    <input class="next-page" type="button" value="上一页" id="page-button" onclick="loadPreviousPage(event)">
+    <input class="next-page" type="button" value="下一页" id="page-button" onclick="loadNextPage(event)">
+  </div>
+  <script src="./top250.js"></script>
+  <script src="./shouye.js"></script>
 </body>
 </html>
