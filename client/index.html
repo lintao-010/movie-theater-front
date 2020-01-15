@@ -18,6 +18,7 @@
     .header-tw-logo img{
       width: 160px;
       margin-right: 120px;
+      cursor:pointer;
     } 
     .header-right {
       text-align: center;
@@ -88,12 +89,12 @@
 <body>
   <div class="header">
     <div class="header-tw-logo">
-      <img src="../src/movie-logo.png" alt="tw-theater-logo">
+      <img src="../src/movie-logo.png" alt="返回首页" onclick="initHomePage()">
     </div>
     <div class="header-right">
       <div class="header-search">
-        <input class="search-input" type="text" value="请输入电影名称">
-        <input class="search-button" type="button" value="搜索">
+        <input class="search-input" id="search-input" type="text" value="请输入电影名称">
+        <input class="search-button" id="search-button" type="button" value="搜索" onclick="searchMovies()">
       </div>
       <div class="header-genre">
         <div class="header-genre-title">分类</div>
