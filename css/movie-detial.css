@@ -83,6 +83,7 @@ body {
 .movie-name {
   font-size: 24px;
   align-self: flex-start;
+  margin: 20px 0;
 }
 
 /* movie-general */
@@ -189,6 +190,10 @@ body {
   margin-bottom: 20px;
 }
 
+.comment-row p:last-child {
+  margin-bottom: 0;
+}
+
 /*similar movies section*/
 
 .similar-movies {
@@ -215,4 +220,25 @@ body {
 .movie-item img {
   width:60%;
   height: 84%;
+}
+
+.page-footer {
+  background: black;
+  color: white;
+  font-size: 12px;
+  align-self: stretch;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+#about-us {
+  background: #5221ed;
+  font-size: 10px;
+  box-sizing: border-box;
+  padding: 2px 4px;
+  border-radius: 4px;
+  margin: 4px 20px;
 }
