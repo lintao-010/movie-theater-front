@@ -708,6 +708,9 @@ function renderDetailPage(data){
   console.log("StartRenderPage");
   renderMovieName(data.title, data.original_title,  data.year);
   renderMovieGeneral(data);
+  renderMovieDescribe(data);
+  renderMovieComment(data);
+  renderSimilarMovies(data);
 }
 
 function renderMovieName(cnName, oriName, year) {
@@ -764,6 +767,49 @@ function getHtmlLinksStr(links){
     LinksStr += tmpStr;
   })
   return LinksStr;
+}
+
+function renderMovieDescribe(data){
+  let htmlStr = `
+<div class="describe">
+  <h3 class="movie-subtitle">剧情简介</h3>
+  <p>${data.summary}</p>
+</div>
+`
+  container.insertAdjacentHTML("beforeend", htmlStr)
+}
+
+function renderMovieComment(data){
+  let htmlStr = `
+<div class="comment">
+  <h3 class="movie-subtitle">豆瓣影评 TOP5</h3>
+  <ul class="comment-container">
+    ${getCommentsLisStr(data.popular_reviews)}
+  </ul>
+</div>
+`
+  container.insertAdjacentHTML("beforeend", htmlStr)
+}
+
+function getCommentsLisStr(reviews){
+  let lisStr = "";
+  reviews.forEach(obj => {
+    let tmpStr = `
+    <li class="comment-row">
+      <div>
+        <img src="${obj.author.avatar}" class="user-avatar">
+        <span>${obj.author.name}: ${obj.title}</span>
+      </div>
+      <p>${obj.summary}</p>
+    </li>
+    `
+    lisStr += tmpStr;
+  })
+  return lisStr;
+}
+
+function renderSimilarMovies(data) {
+  console.log("renderSimilarMovies")
 }
 
 renderDetailPage(data);
