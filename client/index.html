@@ -44,6 +44,7 @@
       display: inline-block;
       margin: 0 10px;
       font-size: 16px;
+      cursor:pointer;
     }
     .header-genre-title{
       float: left;
@@ -99,33 +100,33 @@
       <div class="header-genre">
         <div class="header-genre-title">分类</div>
         <ul>
-          <li>爱情</li>
-          <li>悬疑</li>
-          <li>动作</li>
-          <li>战争</li>
-          <li>历史</li>
-          <li>科幻</li>
-          <li>青春</li>
-          <li>心理</li>
+          <li onclick="searchGenres(event)">爱情</li>
+          <li onclick="searchGenres(event)">悬疑</li>
+          <li onclick="searchGenres(event)">动作</li>
+          <li onclick="searchGenres(event)">战争</li>
+          <li onclick="searchGenres(event)">历史</li>
+          <li onclick="searchGenres(event)">科幻</li>
+          <li onclick="searchGenres(event)">青春</li>
+          <li onclick="searchGenres(event)">心理</li>
         </ul>
         
         <ul>
-          <li>儿童</li>
-          <li>冒险</li>
-          <li>漫画</li>
-          <li>体育</li>
-          <li>纪录</li>
-          <li>惊悚</li>
-          <li>搞笑</li>
-          <li>犯罪</li>
+          <li onclick="searchGenres(event)">儿童</li>
+          <li onclick="searchGenres(event)">冒险</li>
+          <li onclick="searchGenres(event)">漫画</li>
+          <li onclick="searchGenres(event)">体育</li>
+          <li onclick="searchGenres(event)">纪录</li>
+          <li onclick="searchGenres(event)">惊悚</li>
+          <li onclick="searchGenres(event)">搞笑</li>
+          <li onclick="searchGenres(event)">犯罪</li>
         </ul>
       </div>
     </div>
   </div>
   <div class="all-movies">
     <div class="movie-stories" id="movie-table"></div>
-    <input class="next-page" type="button" value="上一页" id="page-button" onclick="loadPreviousPage(event)">
     <input class="next-page" type="button" value="下一页" id="page-button" onclick="loadNextPage(event)">
+    <input class="next-page" type="button" value="上一页" id="page-button" onclick="loadPreviousPage(event)">
   </div>
   <script src="./top250.js"></script>
   <script src="./shouye.js"></script>

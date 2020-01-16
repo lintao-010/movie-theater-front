@@ -65,7 +65,6 @@ function searchMovies(){
     else{
         alert('没有找到相关影片！')
     }
-    
 }
 
 function initHomePage(){
@@ -78,6 +77,33 @@ function toHanzi(str){
     return eval('"'+str+'"');
 }
 
-initHomePage();
+function inArray(search,array){
+    for(var i in array){
+      if(array[i]===search){
+      return true;
+        }
+    }
+    return false;
+}
 
-console.log(eval('"'+"\u72af\u7f6a"+'"'))
+function searchGenres(event){
+    let searchInfo = event.target.innerHTML;
+    let $movies = JSON.parse(localStorage.getItem('original_data'));
+    let $matchedMovies = [];
+    for(let i=0;i<$movies.length;i++){
+        for(let j=0;j<$movies[i].genres.length;j++){
+            if(toHanzi($movies[i].genres[j]).indexOf(searchInfo)!==-1){
+                $matchedMovies.push($movies[i]);
+            }
+        }
+    }
+    if($matchedMovies.length>0){
+        localStorage.setItem('temp_data', JSON.stringify($matchedMovies));
+        loadMovies(1, $matchedMovies);
+    }
+    else{
+        alert('没有找到相关影片！')
+    }
+}
+
+initHomePage();
