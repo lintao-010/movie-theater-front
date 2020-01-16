@@ -687,14 +687,17 @@ let data = {
 let container = document.querySelector(".movie-container")
 
 function getMovieDetails(id) {
-  options = {
+  let options = {
     url: `http://localhost:8888/v2/movie/subject/${id}?apikey=0df993c66c0c636e29ecbb5344252a4a`,
     method: "get",
     headers: {
     },
     data: "",
     success: function(result) {
+      console.log("Details Get")
       result = JSON.parse(result);
+      console.log(result);
+      console.log("===========================")
       renderDetailPage(result);
     }, 
     fail: function(error) {}
@@ -710,7 +713,7 @@ function renderDetailPage(data){
   renderMovieGeneral(data);
   renderMovieDescribe(data);
   renderMovieComment(data);
-  renderSimilarMovies(data);
+  getSimilarMovies(data.genres);
 }
 
 function renderMovieName(cnName, oriName, year) {
@@ -763,7 +766,7 @@ function getHtmlLinksStr(links){
     if (!needPay) {
       needPay = "免费！"
     }
-    let tmpStr = `<li><a href="${obj.sample_link}">${obj.source.name}</a><span>${needPay}</span></li>`
+    let tmpStr = `<li>● <a href="${obj.sample_link}">${obj.source.name}</a><span class="need-pay">${needPay}</span></li>`
     LinksStr += tmpStr;
   })
   return LinksStr;
@@ -784,7 +787,7 @@ function renderMovieComment(data){
 <div class="comment">
   <h3 class="movie-subtitle">豆瓣影评 TOP5</h3>
   <ul class="comment-container">
-    ${getCommentsLisStr(data.popular_reviews)}
+    ${getCommentsLisStr(data.popular_reviews.slice(0, 5))}
   </ul>
 </div>
 `
@@ -809,7 +812,47 @@ function getCommentsLisStr(reviews){
 }
 
 function renderSimilarMovies(data) {
-  console.log("renderSimilarMovies")
+  let htmlStr = `
+    <div class="similar-movies">
+      <h3 class="movie-subtitle">相似电影推荐</h3>
+      <div class="movie-item-container">
+        ${getSimilarMovieItemsStr(data.subjects)}
+      </div>
+    </div> `
+  container.insertAdjacentHTML("beforeend", htmlStr)
+}
+
+function getSimilarMovieItemsStr(items){
+  // items => list of 12 movie obj.
+  let htmlStr = "";
+  items.forEach(item => {
+    console.log(item.images.medium)
+    let tmpStr = `
+      <div class="movie-item">
+        <img src="${item.images.large}"/>
+        <p class="movie-item-name">${item.title}</p>
+        <p class="movie-item-score">评分：${item.rating.average}</p>
+      </div>`
+    htmlStr += tmpStr;
+  })
+  return htmlStr
+}
+
+function getSimilarMovies() {
+  let max = 200;
+  let randomNum = parseInt(Math.random()*(max+1),10);
+  let options = {
+    url: `http://localhost:8888/v2/movie/top250?start=${randomNum}&count=12&apikey=0df993c66c0c636e29ecbb5344252a4a`,
+    method: "get",
+    headers: {},
+    data: "",
+    success: function(result) {
+      result = JSON.parse(result);
+      renderSimilarMovies(result);
+    }, 
+    fail: function(error) {}
+  }
+  ajax(options); 
 }
 
 renderDetailPage(data);

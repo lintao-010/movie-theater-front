@@ -95,7 +95,7 @@ body {
 
 .movie-pic {
   margin: 5px 200px 5px 10px;
-  width: 120px;
+  width: 150px;
 }
 
 .movie-metadata {
@@ -108,11 +108,23 @@ body {
   padding: 4px 10px;
   background: #4668b9;
   border-radius: 3px;
-
+  margin-top: 5px;
+  color: white;
 }
 
 .movie-links {
-  margin-right: 8px;
+  margin: 20px 8px 0 0;
+  align-self: flex-start;
+}
+
+.movie-links h4 {
+  font-size: 16px;
+  color: #333;
+  margin: 4px 0;
+}
+
+.movie-links .need-pay {
+
 }
 
 /* TODO li 的点超出盒子范围 */
@@ -190,9 +202,10 @@ body {
   margin-bottom: 20px;
 }
 
-.comment-row p:last-child {
+/* 为什么last-child没用 */
+/* .comment-row p:last-child {
   margin-bottom: 0;
-}
+} */
 
 /*similar movies section*/
 
@@ -201,11 +214,13 @@ body {
   flex-direction: column;
   align-items: flex-start;
   align-self: flex-start;
+  width: 100%;
 }
 
 .movie-item-container {
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
 }
 
 .movie-item {
