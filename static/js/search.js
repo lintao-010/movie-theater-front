@@ -1,48 +1,3 @@
-// Main Functions
-function loadPartData(times) {
-    var startTime = new Date().getTime();
-    let start = times*100;
-    let count = 100;
-    if(times===2){count = 50;}
-    let options = {
-      url: `http://localhost:8888/v2/movie/top250?start=${start}&count=${count}&apikey=0df993c66c0c636e29ecbb5344252a4a`,
-      async: 'false',
-      method: "get",
-      headers: {
-      },
-      data: "",
-      success: function(result) {
-        localStorage.setItem(`partData${times}`, result);
-        console.log(`Data Get${times}`);
-        var endTime = new Date().getTime();
-        console.log((endTime-startTime)/1000)
-        localStorage.setItem('flag', times);
-      }, 
-      fail: function(error) {console.log('OMG!')}
-    }
-    ajax(options);
-  }
-
-function loadAllData(){
-    localStorage.clear();
-    let $allData = [];
-    for(let i=0;i<3;i++){
-        loadPartData(i);
-    }
-    if(localStorage.getItem('flag')!=='0'){
-        setTimeout( function(){
-            for(let j=0;j<3;j++){
-                var $tempData = JSON.parse(localStorage.getItem(`partData${j}`)).subjects;
-                $allData = $allData.concat($tempData);
-                localStorage.removeItem(`partData${j}`);
-            }
-            localStorage.setItem('original_Data', JSON.stringify($allData));
-            initHomePage();
-            console.log('Movie Loading Finished')
-        }, 8000); 
-    }
-}
-
 function loadMovies(page, movies){
     let $movieTable = document.getElementById('movie-table');
     let $allMovies = $movieTable.parentElement;
@@ -91,7 +46,8 @@ function loadPreviousPage(event){
 }
 
 function searchMovies(){
-    let searchInfo = document.getElementById('search-input').value;
+    let searchInfo = localStorage.getItem('searchInfo');
+    document.getElementById('search-input').value = searchInfo;
     if(!searchInfo){
         alert('请输入搜索关键字！')
         return;
@@ -130,6 +86,19 @@ function initHomePage(){
     loadMovies(1, JSON.parse($original_Data));
 }
 
+function toHanzi(str){
+    return eval('"'+str+'"');
+}
+
+function inArray(search,array){
+    for(var i in array){
+      if(array[i]===search){
+      return true;
+        }
+    }
+    return false;
+}
+
 function searchGenres(event){
     let searchInfo = event.target.innerHTML;
     let $movies = JSON.parse(localStorage.getItem('original_Data'));
@@ -156,26 +125,4 @@ function sendMovieId(event){
     localStorage.setItem('movieId', $movieId);
 }
 
-// Some Helper Functions
-function toHanzi(str){
-    return eval('"'+str+'"');
-}
-
-function inArray(search,array){
-    for(var i in array){
-      if(array[i]===search){
-      return true;
-        }
-    }
-    return false;
-}
-
-function sleep(milliSeconds) {
-    var startTime = new Date().getTime();
-    while (new Date().getTime() < startTime + milliSeconds) {
-    }//暂停一段时间 10000=1S。
-}
-
-
-
-//loadAllData();
+searchMovies();

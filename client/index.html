@@ -7,7 +7,53 @@
   <meta name="referrer" content="no-referrer">
   <title>ThoughtWorksTheater</title>
   <style>
-    .header {
+
+body {
+  width: 100%;
+  height: 100%;
+}
+  .page-header {
+    position: fixed;
+    background-color: black;
+    color: white;
+    height: 60px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-top: -10px;
+  }
+
+  .tw-logo {
+    margin-left: 20px;
+    width: 35px;
+    cursor:pointer;
+  }
+
+  .tw-name {
+    font-size: 26px;
+  }
+
+  #search-input {
+    display: inline-block;
+    box-sizing: border-box;
+    height: 26px;
+    width: 300px;
+    margin: 0 7px 0 auto;
+    border-radius: 3px;
+  }
+
+  #search-button {
+    background: #fff;
+    display: inline-block;
+    height: 26px;
+    width: 80px;
+    text-align: center;
+    border-radius: 3px;
+    margin-right: 30px;
+  }
+
+
+    /* .header {
       display: flex;
       justify-content: center;
       margin: 0 auto;
@@ -23,18 +69,19 @@
     .header-right {
       text-align: center;
     }
-    .header-search {
-      
-    }
     .header-search .search-input{
       height:30px;
       width: 600px;
     }
     .header-search .search-button{
       height: 30px;
-    }
+    }  */
     .header-genre {
-      margin-top: 40px;
+      display: flex;
+      text-align: center;
+      padding-top: 60px;
+      margin: 0 auto;
+      justify-content: center;
     }
     .header-genre ul{
       list-style: none;
@@ -78,9 +125,6 @@
     .movie-item p {
       margin: 0;
     }
-    .movie-info{
-      
-    }
     .next-page {
       float: right;
       margin-right: 10px;
@@ -88,47 +132,58 @@
   </style>
 </head>
 <body>
-  <div class="header">
+
+  <header class="page-header">
+    <img src="../static/images/logo.png" class="tw-logo" alt="返回首页" onclick="initHomePage()">
+    <span class="tw-name">ThoughtWorks</span>
+    <input type="text" name="search-box" id="search-input" value="请输入电影名称">
+    <!-- <button id="search-btn">搜索</button> -->
+    <a href="../pages/search.html" target="_blank"><input id="search-button" type="button" value="搜索" onclick="openSearch()"></a>
+  </header>
+
+  <!-- <div class="header">
     <div class="header-tw-logo">
       <img src="../src/movie-logo.png" alt="返回首页" onclick="initHomePage()">
     </div>
     <div class="header-right">
       <div class="header-search">
         <input class="search-input" id="search-input" type="text" value="请输入电影名称">
-        <input class="search-button" id="search-button" type="button" value="搜索" onclick="searchMovies()">
-      </div>
-      <div class="header-genre">
-        <div class="header-genre-title">分类</div>
-        <ul>
-          <li onclick="searchGenres(event)">爱情</li>
-          <li onclick="searchGenres(event)">悬疑</li>
-          <li onclick="searchGenres(event)">动作</li>
-          <li onclick="searchGenres(event)">战争</li>
-          <li onclick="searchGenres(event)">历史</li>
-          <li onclick="searchGenres(event)">科幻</li>
-          <li onclick="searchGenres(event)">青春</li>
-          <li onclick="searchGenres(event)">心理</li>
-        </ul>
-        
-        <ul>
-          <li onclick="searchGenres(event)">儿童</li>
-          <li onclick="searchGenres(event)">冒险</li>
-          <li onclick="searchGenres(event)">漫画</li>
-          <li onclick="searchGenres(event)">体育</li>
-          <li onclick="searchGenres(event)">纪录</li>
-          <li onclick="searchGenres(event)">惊悚</li>
-          <li onclick="searchGenres(event)">搞笑</li>
-          <li onclick="searchGenres(event)">犯罪</li>
-        </ul>
+        <a href="../pages/search.html" target="_blank"><input class="search-button" id="search-button" type="button" value="搜索" onclick="openSearch()"></a>
       </div>
     </div>
+  </div> -->
+
+  <div class="header-genre">
+      <div class="header-genre-title">分类</div>
+      <ul>
+        <li onclick="searchGenres(event)">爱情</li>
+        <li onclick="searchGenres(event)">悬疑</li>
+        <li onclick="searchGenres(event)">动作</li>
+        <li onclick="searchGenres(event)">战争</li>
+        <li onclick="searchGenres(event)">历史</li>
+        <li onclick="searchGenres(event)">科幻</li>
+        <li onclick="searchGenres(event)">青春</li>
+        <li onclick="searchGenres(event)">心理</li>
+      </ul>
+      
+      <ul>
+        <li onclick="searchGenres(event)">儿童</li>
+        <li onclick="searchGenres(event)">冒险</li>
+        <li onclick="searchGenres(event)">漫画</li>
+        <li onclick="searchGenres(event)">体育</li>
+        <li onclick="searchGenres(event)">纪录</li>
+        <li onclick="searchGenres(event)">惊悚</li>
+        <li onclick="searchGenres(event)">搞笑</li>
+        <li onclick="searchGenres(event)">犯罪</li>
+      </ul>
   </div>
+
   <div class="all-movies">
     <div class="movie-stories" id="movie-table"></div>
     <input class="next-page" type="button" value="下一页" id="page-button" onclick="loadNextPage(event)">
     <input class="next-page" type="button" value="上一页" id="page-button" onclick="loadPreviousPage(event)">
   </div>
-  <script src="./top250.js"></script>
+  <script src="../static/js/ajax.js"></script>
   <script src="./shouye.js"></script>
 </body>
 </html>

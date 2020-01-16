@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="referrer" content="no-referrer">
+  <title>ThoughtWorksTheaterSearch</title>
+  <style>
+    .header {
+      display: flex;
+      justify-content: center;
+      margin: 0 auto;
+      width: 1000px;
+      margin-bottom: 50px;
+      margin-top: 20px;
+    }
+    .header-tw-logo img{
+      width: 160px;
+      margin-right: 120px;
+      cursor:pointer;
+    } 
+    .header-right {
+      text-align: center;
+    }
+    .header-search .search-input{
+      height:30px;
+      width: 600px;
+    }
+    .header-search .search-button{
+      height: 30px;
+    }
+    .header-genre {
+      margin-top: 40px;
+    }
+    .header-genre ul{
+      list-style: none;
+      white-space: nowrap;
+    }
+    .header-genre li{
+      display: inline-block;
+      margin: 0 10px;
+      font-size: 16px;
+      cursor:pointer;
+    }
+    .header-genre-title{
+      float: left;
+      padding-top: 20px;
+      margin-left: 20px;
+      font-size: 22px;
+    }
+    .all-movies {
+      width: 1000px;
+      margin: 0 auto;
+      height: 100%;
+    }
+    .movie-stories {
+      margin: 0 auto;
+      display: grid;
+      width: 1000px;
+      height: auto;
+      grid-template-rows: repeat(4, 330px);
+      grid-template-columns: repeat(5, 180px);
+      grid-row-gap: 10px;
+      grid-column-gap: 20px;
+      grid-auto-flow: row;
+    }
+    .movie-item {
+      font-size: 14px;
+      text-align: center;
+    }
+    .movie-item img {
+      width: 180px;
+    }
+    .movie-item p {
+      margin: 0;
+    }
+    .next-page {
+      float: right;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-tw-logo">
+      <img src="../src/movie-logo.png" alt="返回首页" onclick="initHomePage()">
+    </div>
+    <div class="header-right">
+      <div class="header-search">
+            <input class="search-input" id="search-input" type="text" value="请输入电影名称">
+            <a href="../pages/search.html" target="_blank"><input class="search-button" id="search-button" type="button" value="搜索" onclick="openSearch()"></a>
+      </div>
+      <div class="header-genre">
+        <div class="header-genre-title">分类</div>
+        <ul>
+          <li onclick="searchGenres(event)">爱情</li>
+          <li onclick="searchGenres(event)">悬疑</li>
+          <li onclick="searchGenres(event)">动作</li>
+          <li onclick="searchGenres(event)">战争</li>
+          <li onclick="searchGenres(event)">历史</li>
+          <li onclick="searchGenres(event)">科幻</li>
+          <li onclick="searchGenres(event)">青春</li>
+          <li onclick="searchGenres(event)">心理</li>
+        </ul>
+        
+        <ul>
+          <li onclick="searchGenres(event)">儿童</li>
+          <li onclick="searchGenres(event)">冒险</li>
+          <li onclick="searchGenres(event)">漫画</li>
+          <li onclick="searchGenres(event)">体育</li>
+          <li onclick="searchGenres(event)">纪录</li>
+          <li onclick="searchGenres(event)">惊悚</li>
+          <li onclick="searchGenres(event)">搞笑</li>
+          <li onclick="searchGenres(event)">犯罪</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="all-movies">
+    <div class="movie-stories" id="movie-table"></div>
+    <input class="next-page" type="button" value="下一页" id="page-button" onclick="loadNextPage(event)">
+    <input class="next-page" type="button" value="上一页" id="page-button" onclick="loadPreviousPage(event)">
+  </div>
+  <script src="../static/js/ajax.js"></script>
+  <script src="../static/js/search.js"></script>
+</body>
+</html>

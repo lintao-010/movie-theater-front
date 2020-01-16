@@ -11,6 +11,7 @@ options = {
 window.ajax = function(options) {
   options = {
     url: options.url || "",
+    async: 'false',
     method: options.method || "get",
     headers: options.headers || {},
     data: options.data || null,
