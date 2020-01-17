@@ -50,9 +50,11 @@ body {
 
 .tw-name {
   font-size: 26px;
+  color: white;
+  margin-left: 10px;
 }
 
-#search-box {
+#search-input {
   display: inline-block;
   box-sizing: border-box;
   height: 26px;

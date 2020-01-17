@@ -25,6 +25,7 @@ function renderDetailPage(data){
 }
 
 function renderMovieName(cnName, oriName, year) {
+  document.title = cnName;
   let htmlStr = `
 <h2 class="movie-name">${cnName} — ${oriName}（${year}）</h2>
   `
