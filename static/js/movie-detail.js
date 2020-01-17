@@ -8,10 +8,7 @@ function getMovieDetails(id) {
     },
     data: "",
     success: function(result) {
-      console.log("Details Get")
       result = JSON.parse(result);
-      console.log(result);
-      console.log("===========================")
       renderDetailPage(result);
     }, 
     fail: function(error) {}
@@ -20,7 +17,6 @@ function getMovieDetails(id) {
 }
 
 function renderDetailPage(data){
-  console.log("StartRenderPage");
   renderMovieName(data.title, data.original_title,  data.year);
   renderMovieGeneral(data);
   renderMovieDescribe(data);
@@ -138,7 +134,6 @@ function getSimilarMovieItemsStr(items){
   // items => list of 12 movie obj.
   let htmlStr = "";
   items.forEach(item => {
-    console.log(item.images.medium)
     let tmpStr = `
       <div class="movie-item">
         <img src="${item.images.large}"/>
