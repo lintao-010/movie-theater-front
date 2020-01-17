@@ -54,7 +54,7 @@ function loadMovies(page, movies){
         }
         else{
             $movieTable.innerHTML += `<div class="movie-item">
-            <a target='_blank' href="../pages/movie-detial.html" onclick='sendMovieId(event)' id=${movies[i+20*(page-1)].id}>
+            <a target='_blank' href="../pages/movie-detail.html?id=${movies[i+20*(page-1)].id}" id=${movies[i+20*(page-1)].id}>
             <img src=${movies[i+20*(page-1)].images.small} alt="cover">
             </a>
             <div class="movie-info">
@@ -93,7 +93,7 @@ function loadPreviousPage(event){
 function searchMovies(){
     let searchInfo = document.getElementById('search-input').value;
     if(!searchInfo){
-        alert('请输入搜索关键字！')
+        alert('搜索关键字不能为空！')
         return;
     }
     let $movies = JSON.parse(localStorage.getItem('original_Data'));
@@ -176,6 +176,15 @@ function sleep(milliSeconds) {
     }//暂停一段时间 10000=1S。
 }
 
+function openHomePage(){
+    if(localStorage.getItem('original_Data')){
+        console.log('Original Data already in LocalStorage.')
+        initHomePage();
+    }
+    else{
+        console.log('Original Data not found!')
+        loadAllData();
+    }
+}
 
-
-//loadAllData();
+openHomePage();
