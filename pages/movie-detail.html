@@ -12,10 +12,12 @@
 
 <body>
   <header class="page-header">
-    <img src="../static/images/logo.png" alt="" class="tw-logo">
+    <a href="../client/index.html">
+    <img src="../static/images/logo.png" alt="" class="tw-logo" alt="返回首页">
+    </a>
     <span class="tw-name">ThoughtWorks</span>
     <input type="text" name="search-box" id="search-box">
-    <button id="search-btn">搜索</button>
+    <a href="../pages/search.html" target="_blank"><input id="search-button" type="button" value="搜索" onclick="openSearch()"></a>
   </header>
 
   <section class="movie-container">
@@ -27,6 +29,7 @@
   </footer>
 
   <script src="../static/js/ajax.js"></script>
+  <!-- <script src="../static/js/search.js"></script> -->
   <script src="../static/js/movie-detail.js"></script>
 </body>
 

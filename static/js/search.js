@@ -9,7 +9,7 @@ function loadMovies(page, movies){
         }
         else{
             $movieTable.innerHTML += `<div class="movie-item">
-            <a target='_blank' href="../pages/movie-detial.html" onclick='sendMovieId(event)' id=${movies[i+20*(page-1)].id}>
+            <a target='_blank' href="../pages/movie-detail.html?id=${movies[i+20*(page-1)].id}" id=${movies[i+20*(page-1)].id}>
             <img src=${movies[i+20*(page-1)].images.small} alt="cover">
             </a>
             <div class="movie-info">
@@ -123,6 +123,15 @@ function sendMovieId(event){
     let $movieId = event.target.parentElement.id;
     console.log($movieId);
     localStorage.setItem('movieId', $movieId);
+}
+
+function openHomePage(){
+    if(localStorage.getItem('orginal_Data')){
+        initHomePage();
+    }
+    else{
+        loadAllData();
+    }
 }
 
 searchMovies();
