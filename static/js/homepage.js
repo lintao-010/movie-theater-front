@@ -156,6 +156,34 @@ function sendMovieId(event){
     localStorage.setItem('movieId', $movieId);
 }
 
+//正在热映与在线选座购票
+function switchInTheater(event){
+    let $theaterImage = JSON.parse(localStorage.getItem('inTheater'));
+    let $id = Number(event.target.parentElement.id.slice(7,8));
+    $id===1?($id++):($id--);
+    document.getElementById('switchInTheater').parentElement.setAttribute('id', `theater${$id}`);
+    for(let i=0;i<4;i++){
+        document.getElementById(`theater-div${i+1}`).style.backgroundImage = `url(${$theaterImage[4*($id-1)+i]})`;
+    }
+}
+
+function startInTheater(){
+    let $theaterImage = [];
+    for(let i=0;i<inTheater.subjects.length;i++){
+        $theaterImage.push(inTheater.subjects[i].images.small)
+    }
+    for(let i=0;i<4;i++){
+        document.getElementById(`theater-div${i+1}`).style.backgroundImage = `url(${$theaterImage[i]})`
+    }
+    document.getElementById('switchInTheater').parentElement.setAttribute('id', 'theater1')
+    localStorage.setItem('inTheater', JSON.stringify($theaterImage));
+}
+
+function openTaoPP(){
+    console.log('yes')
+    window.open('https://dianying.taobao.com/?spm=a1z21.3046609.city.7.32c0112aDithoH&city=510100')
+}
+
 // Some Helper Functions
 function toHanzi(str){
     return eval('"'+str+'"');
@@ -185,6 +213,7 @@ function openHomePage(){
         console.log('Original Data not found!')
         loadAllData();
     }
+    startInTheater();
 }
 
 openHomePage();

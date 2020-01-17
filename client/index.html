@@ -54,36 +54,12 @@ body {
     margin-right: 30px;
   }
 
-
-    /* .header {
-      display: flex;
-      justify-content: center;
-      margin: 0 auto;
-      width: 1000px;
-      margin-bottom: 50px;
-      margin-top: 20px;
-    }
-    .header-tw-logo img{
-      width: 160px;
-      margin-right: 120px;
-      cursor:pointer;
-    } 
-    .header-right {
-      text-align: center;
-    }
-    .header-search .search-input{
-      height:30px;
-      width: 600px;
-    }
-    .header-search .search-button{
-      height: 30px;
-    }  */
     .header-genre {
       display: flex;
       text-align: center;
-      padding-top: 60px;
       margin: 0 auto;
       justify-content: center;
+      
     }
     .header-genre ul{
       list-style: none;
@@ -95,11 +71,15 @@ body {
       font-size: 16px;
       cursor:pointer;
     }
+    .header-genre li:hover{
+      color: blue;
+    }
     .header-genre-title{
       float: left;
       padding-top: 20px;
       margin-left: 20px;
-      font-size: 22px;
+      font-size: 16px;
+      font-weight: bold;
     }
     .all-movies {
       width: 1000px;
@@ -123,6 +103,7 @@ body {
     }
     .movie-item img {
       width: 180px;
+      height: 250px;
     }
     .movie-item p {
       margin: 0;
@@ -130,6 +111,43 @@ body {
     .next-page {
       float: right;
       margin-right: 10px;
+    }
+    .theater {
+      height: 460px;
+      margin-bottom: 20px;
+      margin-left: -8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(179, 49, 49, 0.8)
+    }
+    .theater div{
+      width: 270px;
+      height: 400px;
+      border-radius: 10px 10px;
+      background-repeat: no-repeat;
+      margin: 0 6px;
+      background-size: cover;
+    }
+    .switchInTheater{
+      right: 100px;
+      top: 540px;
+      position: absolute;
+    }
+    #switchInTheater{
+      border-radius: 8px 8px;
+      width: 100px;
+      height: 30px;
+      margin-bottom: 20px;
+    }
+    .buy-ticket{
+      display: flex;
+      justify-content: center;
+      padding-top: 50px;
+    }
+    .douban250{
+      display: flex;
+      justify-content: center;
     }
   </style>
 </head>
@@ -142,43 +160,48 @@ body {
     <!-- <button id="search-btn">搜索</button> -->
     <a href="../pages/search.html" target="_blank"><input id="search-button" type="button" value="搜索" onclick="openSearch()"></a>
   </header>
+  
+  
 
-  <!-- <div class="header">
-    <div class="header-tw-logo">
-      <img src="../src/movie-logo.png" alt="返回首页" onclick="initHomePage()">
-    </div>
-    <div class="header-right">
-      <div class="header-search">
-        <input class="search-input" id="search-input" type="text" value="请输入电影名称">
-        <a href="../pages/search.html" target="_blank"><input class="search-button" id="search-button" type="button" value="搜索" onclick="openSearch()"></a>
-      </div>
-    </div>
-  </div> -->
+  <div class="buy-ticket"><h3>成都地区 正在热映 点击可特惠购票</h3></div>
+  <div class="theater" id="theater">
+    <a href='https://dianying.taobao.com/?spm=a1z21.3046609.city.7.32c0112aDithoH&city=510100' target="_blank">
+      <div id="theater-div1"></div>
+    </a>
+    <a href='https://dianying.taobao.com/?spm=a1z21.3046609.city.7.32c0112aDithoH&city=510100' target="_blank">
+      <div id="theater-div2"></div>
+    </a>
+    <a href='https://dianying.taobao.com/?spm=a1z21.3046609.city.7.32c0112aDithoH&city=510100' target="_blank">
+      <div id="theater-div3"></div>
+    </a>
+    <a href='https://dianying.taobao.com/?spm=a1z21.3046609.city.7.32c0112aDithoH&city=510100' target="_blank">
+      <div id="theater-div4"></div>
+    </a>
+    <div class="switchInTheater"><button id="switchInTheater" onclick="switchInTheater(event)">换一批</button></div>
+  </div>
+
+  <div class="douban250"><h3>豆瓣TOP250电影推荐</h3></div>
 
   <div class="header-genre">
-      <div class="header-genre-title">分类</div>
-      <ul>
-        <li onclick="searchGenres(event)">爱情</li>
-        <li onclick="searchGenres(event)">悬疑</li>
-        <li onclick="searchGenres(event)">动作</li>
-        <li onclick="searchGenres(event)">战争</li>
-        <li onclick="searchGenres(event)">历史</li>
-        <li onclick="searchGenres(event)">科幻</li>
-        <li onclick="searchGenres(event)">青春</li>
-        <li onclick="searchGenres(event)">心理</li>
-      </ul>
-      
-      <ul>
-        <li onclick="searchGenres(event)">儿童</li>
-        <li onclick="searchGenres(event)">冒险</li>
-        <li onclick="searchGenres(event)">漫画</li>
-        <li onclick="searchGenres(event)">体育</li>
-        <li onclick="searchGenres(event)">纪录</li>
-        <li onclick="searchGenres(event)">惊悚</li>
-        <li onclick="searchGenres(event)">搞笑</li>
-        <li onclick="searchGenres(event)">犯罪</li>
-      </ul>
-  </div>
+    <div class="header-genre-title">分类</div>
+    <ul>
+      <li onclick="searchGenres(event)">爱情</li>
+      <li onclick="searchGenres(event)">悬疑</li>
+      <li onclick="searchGenres(event)">动作</li>
+      <li onclick="searchGenres(event)">战争</li>
+      <li onclick="searchGenres(event)">历史</li>
+      <li onclick="searchGenres(event)">科幻</li>
+    </ul>
+    
+    <ul>
+      <li onclick="searchGenres(event)">儿童</li>
+      <li onclick="searchGenres(event)">冒险</li>
+      <li onclick="searchGenres(event)">纪录</li>
+      <li onclick="searchGenres(event)">惊悚</li>
+      <li onclick="searchGenres(event)">剧情</li>
+      <li onclick="searchGenres(event)">犯罪</li>
+    </ul>
+</div>
 
   <div class="all-movies">
     <div class="movie-stories" id="movie-table"></div>
@@ -186,6 +209,7 @@ body {
     <input class="next-page" type="button" value="上一页" id="page-button" onclick="loadPreviousPage(event)">
   </div>
   <script src="../static/js/ajax.js"></script>
-  <script src="./shouye.js"></script>
+  <script src="../static/js/inTheater.js"></script>
+  <script src="../static/js/homepage.js"></script>
 </body>
 </html>
