@@ -57,7 +57,7 @@ function renderMovieGeneral(data) {
     <button class="watch-online-btn">在线观看，选取线路</button>
   </div>
   <div class="movie-links">
-    <h4>电影链接---</h4>
+    <h4>电影链接 ·  ·  · </h4>
     <ul>
       ${getHtmlLinksStr(data.videos)}
     <ul>
@@ -71,10 +71,12 @@ function getHtmlLinksStr(links){
   let LinksStr = "";
   links.forEach(obj => {
     let needPay = "VIP收费"
+    let needPayClassName = "need-pay"
     if (!needPay) {
       needPay = "免费！"
+      needPayClassName = "free-watch"
     }
-    let tmpStr = `<li>● <a href="${obj.sample_link}">${obj.source.name}</a><span class="need-pay">${needPay}</span></li>`
+    let tmpStr = `<li>● <a href="${obj.sample_link}">${obj.source.name}</a><span class="${needPayClassName}">${needPay}</span></li>`
     LinksStr += tmpStr;
   })
   return LinksStr;
@@ -136,9 +138,9 @@ function getSimilarMovieItemsStr(items){
   items.forEach(item => {
     let tmpStr = `
       <div class="movie-item">
-        <img src="${item.images.large}"/>
-        <p class="movie-item-name">${item.title}</p>
-        <p class="movie-item-score">评分：${item.rating.average}</p>
+        <a target='_blank' href="./movie-detail.html?id=${item.id}" class="movie-item-image"><img src="${item.images.large}"/></a>
+        <a target='_blank' href="./movie-detail.html?id=${item.id}" class="movie-item-name">${item.title}</a>
+        <a target='_blank' href="./movie-detail.html?id=${item.id}" class="movie-item-score">评分：${item.rating.average}</a>
       </div>`
     htmlStr += tmpStr;
   })
@@ -162,4 +164,8 @@ function getSimilarMovies() {
   ajax(options); 
 }
 
-getMovieDetails(JSON.parse(localStorage.getItem('movieId')));
+function getIdFromURL(){
+  return window.location.href.split("=")[1];
+}
+
+getMovieDetails(getIdFromURL());

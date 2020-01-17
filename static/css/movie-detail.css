@@ -5,6 +5,7 @@
 
 h1,h2,h3,h4,a{
   text-decoration: none;
+  color: black;
 }
 
 ul,li {
@@ -94,7 +95,7 @@ body {
 }
 
 .movie-pic {
-  margin: 5px 200px 5px 10px;
+  margin: 5px 150px 5px 10px;
   width: 150px;
 }
 
@@ -115,6 +116,11 @@ body {
 .movie-links {
   margin: 20px 8px 0 0;
   align-self: flex-start;
+  width: 20%;
+  height: 80%;
+  background-color: #eee9;
+  box-sizing: border-box;
+  padding: 15px;
 }
 
 .movie-links h4 {
@@ -123,18 +129,30 @@ body {
   margin: 4px 0;
 }
 
-.movie-links .need-pay {
-
-}
-
 /* TODO li 的点超出盒子范围 */
 .movie-links li {
   margin-left: 10px;
+  position: relative;
 }
 
 .movie-links a {
   margin: 0 20px 0 0;
+  color: #4668b9;
 }
+
+.need-pay {
+  color: #777;
+}
+
+.free-watch {
+  color: #4668b9;
+}
+
+.movie-links>ul span {
+  position: absolute;
+  right: 20px;
+}
+
 
 /* describe */
 .describe {
@@ -232,9 +250,14 @@ body {
   margin-bottom: 10px;
 }
 
-.movie-item img {
+.movie-item-image {
   width:60%;
   height: 84%;
+}
+
+.movie-item-image img {
+  width: 100%;
+  height: 100%;
 }
 
 .page-footer {
