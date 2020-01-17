@@ -162,4 +162,4 @@ function getSimilarMovies() {
   ajax(options); 
 }
 
-getMovieDetails(26942674);
+getMovieDetails(JSON.parse(localStorage.getItem('movieId')));
