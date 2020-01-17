@@ -7,59 +7,52 @@
   <meta name="referrer" content="no-referrer">
   <title>ThoughtWorksTheater</title>
   <style>
-
-body {
-  width: 100%;
-  height: 100%;
-  font-family: Arial, Helvetica, sans-serif;
-}
-  .page-header {
-    position: fixed;
-    background-color: black;
-    color: white;
-    height: 60px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    margin-top: -8px;
-    margin-left: -8px;
-  }
-
-  .tw-logo {
-    margin-left: 20px;
-    width: 50px;
-    cursor:pointer;
-  }
-
-  .tw-name {
-    font-size: 26px;
-  }
-
-  #search-input {
-    display: inline-block;
-    box-sizing: border-box;
-    height: 26px;
-    width: 300px;
-    margin: 0 7px 0 auto;
-    border-radius: 3px;
-  }
-
-  #search-button {
-    background: #fff;
-    display: inline-block;
-    height: 26px;
-    width: 80px;
-    text-align: center;
-    border-radius: 3px;
-    margin-right: 30px;
-  }
-
+    body {
+      width: 100%;
+      height: 100%;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    .page-header {
+      position: fixed;
+      background-color: black;
+      color: white;
+      height: 60px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      margin-top: -8px;
+      margin-left: -8px;
+    }
+    .tw-logo {
+      margin-left: 20px;
+      width: 50px;
+      cursor:pointer;
+    }
+    .tw-name {
+      font-size: 26px;
+    }
+    #search-input {
+      display: inline-block;
+      box-sizing: border-box;
+      height: 26px;
+      width: 300px;
+      margin: 0 7px 0 auto;
+      border-radius: 3px;
+    }
+    #search-button {
+      background: #fff;
+      display: inline-block;
+      height: 26px;
+      width: 80px;
+      text-align: center;
+      border-radius: 3px;
+      margin-right: 30px;
+    }
     .header-genre {
       display: flex;
       text-align: center;
       margin: 0 auto;
-      justify-content: center;
-      
+      justify-content: center; 
     }
     .header-genre ul{
       list-style: none;
@@ -111,6 +104,8 @@ body {
     .next-page {
       float: right;
       margin-right: 10px;
+      margin-bottom: 20px;
+      margin-top: -10px;
     }
     .theater {
       height: 460px;
@@ -149,20 +144,27 @@ body {
       display: flex;
       justify-content: center;
     }
+    .page-footer {
+      width: 100%;
+      background: black;
+      color: white;
+      font-size: 12px;
+      align-self: stretch;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   </style>
 </head>
 <body>
-
   <header class="page-header">
     <img src="../static/images/logo.png" class="tw-logo" alt="返回首页" onclick="initHomePage()">
     <span class="tw-name">ThoughtWorks</span>
     <input type="text" name="search-box" id="search-input" value="请输入电影名称">
-    <!-- <button id="search-btn">搜索</button> -->
     <a href="../pages/search.html" target="_blank"><input id="search-button" type="button" value="搜索" onclick="openSearch()"></a>
   </header>
   
-  
-
   <div class="buy-ticket"><h3>成都地区 正在热映 点击可特惠购票</h3></div>
   <div class="theater" id="theater">
     <a href='https://dianying.taobao.com/?spm=a1z21.3046609.city.7.32c0112aDithoH&city=510100' target="_blank">
@@ -192,7 +194,6 @@ body {
       <li onclick="searchGenres(event)">历史</li>
       <li onclick="searchGenres(event)">科幻</li>
     </ul>
-    
     <ul>
       <li onclick="searchGenres(event)">儿童</li>
       <li onclick="searchGenres(event)">冒险</li>
@@ -208,6 +209,12 @@ body {
     <input class="next-page" type="button" value="下一页" id="page-button" onclick="loadNextPage(event)">
     <input class="next-page" type="button" value="上一页" id="page-button" onclick="loadPreviousPage(event)">
   </div>
+
+  <footer class="page-footer">
+    <span>CopyRight &copy; Tw-Chengdu 2020. All Rights Reserved.</span>
+    <span id="about-us">关于我们</span>
+  </footer>
+
   <script src="../static/js/ajax.js"></script>
   <script src="../static/js/inTheater.js"></script>
   <script src="../static/js/homepage.js"></script>
