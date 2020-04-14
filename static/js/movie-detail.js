@@ -73,7 +73,7 @@ function getHtmlLinksStr(links){
   links.forEach(obj => {
     let needPay = "VIP收费"
     let needPayClassName = "need-pay"
-    if (!needPay) {
+    if (!obj.need_pay) {
       needPay = "免费！"
       needPayClassName = "free-watch"
     }
