@@ -1,3 +1,27 @@
+function searchMovieData(searchInfo) {
+    var startTime = new Date().getTime();
+    let options = {
+      url: `http://localhost:8080/searchSimpleMovieInfo/${searchInfo}`,
+      async: 'false',
+      method: "get",
+      headers: {
+      },
+      data: "",
+      success: function(result) {
+        localStorage.setItem(`searchData`, result);
+        var endTime = new Date().getTime();
+        console.log((endTime-startTime)/1000)
+        if(result.length<10){
+            alert("没有找到相关电影！")
+        } else {
+            loadMovies(1, JSON.parse(result));
+        }
+      }, 
+      fail: function(error) {console.log('OMG!')}
+    }
+    ajax(options);
+}
+
 function loadMovies(page, movies){
     let $movieTable = document.getElementById('movie-table');
     let $allMovies = $movieTable.parentElement;
@@ -8,9 +32,11 @@ function loadMovies(page, movies){
             return;
         }
         else{
+            let $imagesInfo = movies[i+20*(page-1)].images;
+            let $smallImage = JSON.parse($imagesInfo.replace(/'/g, '"'));
             $movieTable.innerHTML += `<div class="movie-item">
             <a target='_blank' href="../pages/movie-detail.html?id=${movies[i+20*(page-1)].id}" id=${movies[i+20*(page-1)].id}>
-            <img src=${movies[i+20*(page-1)].images.small} alt="cover">
+            <img src=${$smallImage.small} alt="cover">
             </a>
             <div class="movie-info">
             <p>${toHanzi(movies[i+20*(page-1)].title)}</p>
@@ -23,7 +49,7 @@ function loadMovies(page, movies){
 
 function loadNextPage(event){
     let page =  Number(event.target.parentElement.id.slice(13,))+1;
-    let movies = JSON.parse(localStorage.getItem('temp_data'));
+    let movies = JSON.parse(localStorage.getItem('searchData'));
     if(page>Math.ceil(movies.length/20)){
         alert('没有更多电影了！');
         return;
@@ -35,7 +61,7 @@ function loadNextPage(event){
 
 function loadPreviousPage(event){
     let page =  Number(event.target.parentElement.id.slice(13,))-1;
-    let movies = JSON.parse(localStorage.getItem('temp_data'));
+    let movies = JSON.parse(localStorage.getItem('searchData'));
     if(page===0){
         alert('已经是第一页！');
         return;
@@ -51,20 +77,8 @@ function searchMovies(){
     if(!searchInfo){
         alert('请输入搜索关键字！')
         return;
-    }
-    let $movies = JSON.parse(localStorage.getItem('original_Data'));
-    let $matchedMovies = [];
-    for(let i=0;i<$movies.length;i++){
-        if(toHanzi($movies[i].title).indexOf(searchInfo)!==-1){
-            $matchedMovies.push($movies[i]);
-        }
-    }
-    if($matchedMovies.length>0){
-        localStorage.setItem('temp_data', JSON.stringify($matchedMovies));
-        loadMovies(1, $matchedMovies);
-    }
-    else{
-        alert('没有找到相关影片！')
+    } else {
+        searchMovieData(searchInfo);
     }
 }
 
@@ -82,7 +96,7 @@ function openSearch(event){
 
 function initHomePage(){
     var $original_Data = localStorage.getItem('original_Data');
-    localStorage.setItem('temp_data', $original_Data);
+    localStorage.setItem('searchData', $original_Data);
     loadMovies(1, JSON.parse($original_Data));
 }
 
