@@ -12,7 +12,7 @@ function getMovieDetails(id) {
       console.log(result);
       renderMovieName(result.title, result.originalTitle, result.year);
       renderMovieGeneral(result);
-      // renderDetailPage(result);
+      getMovieLinks(movieId);
     },
     fail: function (error) { }
   }
@@ -68,31 +68,10 @@ function renderMovieGeneral(data) {
     <p class="region">制片国家/地区：${data.countries}</p>
     <p class="lang">语言：${htmlLangStr}</p>
     <p class="debut-date">上映时间：${htmlPubdatesStr}</p>
-  `
-  container.insertAdjacentHTML("beforeend", htmlStr);
-}
-
-function getMovieRating(id) {
-  let options = {
-    url: `http://localhost:8080/theater_api/rating/${id}`,
-    method: "get",
-    headers: {
-    },
-    data: "",
-    success: function (result) {
-      result = JSON.parse(result);
-      renderMovieRating(result);
-    },
-    fail: function (error) { }
-  }
-  ajax(options);
-}
-
-function renderMovieRating(data) {
-  let htmlStr = `
     <p class="score">豆瓣评分：${data.average}</p>
     <button class="watch-online-btn">在线观看，选取线路</button>
   </div>`
+  
   container.insertAdjacentHTML("beforeend", htmlStr);
 }
 
@@ -105,7 +84,10 @@ function getMovieLinks(id) {
     data: "",
     success: function (result) {
       result = JSON.parse(result);
+      console.log("=============video==============")
+      console.log(result);
       renderVideoLinks(result);
+      getMovieDescribe(movieId);
     },
     fail: function (error) { }
   }
@@ -113,20 +95,22 @@ function getMovieLinks(id) {
 }
 
 function renderVideoLinks(data) {
-
   let htmlStr = `
     <div class="movie-links">
-    <h4>电影链接 ·  ·  · </h4>
-    <ul>
-      ${getHtmlLinksStr(data.videos)}
-    <ul>
-  </div>
+      <h4>电影链接 ·  ·  · </h4>
+      <ul>
+        ${getHtmlLinksStr(data)}
+      <ul>
+    </div>
   </div> `
   container.insertAdjacentHTML("beforeend", htmlStr)
 }
 
 function getHtmlLinksStr(links) {
   let LinksStr = "";
+  console.log("=============")
+  console.log(links[0]);
+  // TODO Sql Video增加name字段
   links.forEach(obj => {
     let needPay = "VIP收费"
     let needPayClassName = "need-pay"
@@ -134,10 +118,27 @@ function getHtmlLinksStr(links) {
       needPay = "免费！"
       needPayClassName = "free-watch"
     }
-    let tmpStr = `<li>● <a href="${obj.sample_link}">${obj.source.name}</a><span class="${needPayClassName}">${needPay}</span></li>`
+    let tmpStr = `<li>● <a href="${obj.sample_link}">${obj.name}</a><span class="${needPayClassName}">${needPay}</span></li>`
     LinksStr += tmpStr;
   })
   return LinksStr;
+}
+
+function getMovieDescribe(id) {
+  let options = {
+    url: `http://localhost:8080/theater_api/movie/${id}`,
+    method: "get",
+    headers: {
+    },
+    data: "",
+    success: function (result) {
+      result = JSON.parse(result);
+      renderMovieDescribe(result);
+      getMovieComment(id);
+    },
+    fail: function (error) { }
+  }
+  ajax(options);
 }
 
 function renderMovieDescribe(data) {
@@ -150,12 +151,29 @@ function renderMovieDescribe(data) {
   container.insertAdjacentHTML("beforeend", htmlStr)
 }
 
+function getMovieComment(id) {
+  let options = {
+    url: `http://localhost:8080/theater_api/popular_views/${id}`,
+    method: "get",
+    headers: {
+    },
+    data: "",
+    success: function (result) {
+      result = JSON.parse(result);
+      renderMovieComment(result);
+      getSimilarMovies();
+    },
+    fail: function (error) { }
+  }
+  ajax(options);
+}
+
 function renderMovieComment(data) {
   let htmlStr = `
 <div class="comment">
   <h3 class="movie-subtitle">豆瓣影评 TOP5</h3>
   <ul class="comment-container">
-    ${getCommentsLisStr(data.popular_reviews.slice(0, 5))}
+    ${getCommentsLisStr(data.slice(0, 5))}
   </ul>
 </div>
 `
@@ -165,11 +183,12 @@ function renderMovieComment(data) {
 function getCommentsLisStr(reviews) {
   let lisStr = "";
   reviews.forEach(obj => {
+    let author = JSON.parse(obj.author.replace(/'/g, '"'))
     let tmpStr = `
     <li class="comment-row">
       <div>
-        <img src="${obj.author.avatar}" class="user-avatar">
-        <span>${obj.author.name}: ${obj.title}</span>
+        <img src="${author.avatar}" class="user-avatar">
+        <span>${author.name}: ${obj.title}</span>
       </div>
       <p>${obj.summary}</p>
     </li>
@@ -184,7 +203,7 @@ function renderSimilarMovies(data) {
     <div class="similar-movies">
       <h3 class="movie-subtitle">相似电影推荐</h3>
       <div class="movie-item-container">
-        ${getSimilarMovieItemsStr(data.subjects)}
+        ${getSimilarMovieItemsStr(data)}
       </div>
     </div> `
   container.insertAdjacentHTML("beforeend", htmlStr)
@@ -194,11 +213,14 @@ function getSimilarMovieItemsStr(items) {
   // items => list of 12 movie obj.
   let htmlStr = "";
   items.forEach(item => {
+    let imagesInfo = item.images;
+    let largeImage = JSON.parse(imagesInfo.replace(/'/g, '"')).large;
+    // TODO ratingAverage
     let tmpStr = `
       <div class="movie-item">
-        <a target='_blank' href="./movie-detail.html?id=${item.id}" class="movie-item-image"><img src="${item.images.large}"/></a>
+        <a target='_blank' href="./movie-detail.html?id=${item.id}" class="movie-item-image"><img src="${largeImage}"/></a>
         <a target='_blank' href="./movie-detail.html?id=${item.id}" class="movie-item-name">${item.title}</a>
-        <a target='_blank' href="./movie-detail.html?id=${item.id}" class="movie-item-score">评分：${item.rating.average}</a>
+        <a target='_blank' href="./movie-detail.html?id=${item.id}" class="movie-item-score">评分：${9.8}</a>
       </div>`
     htmlStr += tmpStr;
   })
@@ -209,7 +231,7 @@ function getSimilarMovies() {
   let max = 200;
   let randomNum = parseInt(Math.random() * (max + 1), 10);
   let options = {
-    url: `http://localhost:8888/v2/movie/top250?start=${randomNum}&count=12&apikey=0df993c66c0c636e29ecbb5344252a4a`,
+    url: `http://localhost:8080/theater_api/similar?start=${randomNum}&count=12&apikey=0df993c66c0c636e29ecbb5344252a4a`,
     method: "get",
     headers: {},
     data: "",
@@ -228,5 +250,3 @@ function getIdFromURL() {
 
 let movieId = getIdFromURL();
 getMovieDetails(movieId);
-getMovieRating(movieId);
-getMovieLinks(movieId);
