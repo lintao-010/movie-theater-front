@@ -22,6 +22,30 @@ function searchMovieData(searchInfo) {
     ajax(options);
 }
 
+function searchGenreMovieData(genre) {
+    var startTime = new Date().getTime();
+    let options = {
+      url: `http://localhost:8080/searchGenreSimpleMoviesInfo/${genre}`,
+      async: 'false',
+      method: "get",
+      headers: {
+      },
+      data: "",
+      success: function(result) {
+        localStorage.setItem(`searchData`, result);
+        var endTime = new Date().getTime();
+        console.log((endTime-startTime)/1000)
+        if(result.length<10){
+            alert('没有找到相关类型影片！');
+        } else {
+            loadMovies(1, JSON.parse(result));
+        }
+      }, 
+      fail: function(error) {console.log('OMG!')}
+    }
+    ajax(options);
+}
+
 function loadMovies(page, movies){
     let $movieTable = document.getElementById('movie-table');
     let $allMovies = $movieTable.parentElement;
@@ -94,11 +118,6 @@ function openSearch(event){
     document.getElementById('search-input').value = "请输入电影名称";
 }
 
-function openGenres(event){
-    let searchInfo = event.target.innerHTML;
-    localStorage.setItem('genre', searchInfo);
-}
-
 function initHomePage(){
     var $original_Data = localStorage.getItem('original_Data');
     localStorage.setItem('searchData', $original_Data);
@@ -124,6 +143,11 @@ function searchGenres(){
     searchGenreMovieData(genre);
 }
 
+function openGenres(event){
+    let searchInfo = event.target.innerHTML;
+    localStorage.setItem('genre', searchInfo);
+}
+
 function sendMovieId(event){
     let $movieId = event.target.parentElement.id;
     console.log($movieId);
@@ -139,4 +163,4 @@ function openHomePage(){
     }
 }
 
-searchMovies();
+searchGenres();
