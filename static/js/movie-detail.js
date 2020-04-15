@@ -20,11 +20,8 @@ function getMovieDetails(id) {
 }
 
 function renderDetailPage(data) {
-  // renderMovieName(data.title, data.original_title,  data.year);
-  // renderMovieGeneral(data);
   renderMovieDescribe(data);
   renderMovieComment(data);
-  getSimilarMovies(data.genres);
 }
 
 function renderMovieName(cnName, oriName, year) {
@@ -58,9 +55,10 @@ function renderMovieGeneral(data) {
   let htmlPubdatesStr = pubdates.reduce((pre, cur) => pre += `，${cur}`, "");
   htmlPubdatesStr = htmlPubdatesStr.substring(1);
 
+  let image = JSON.parse(data.images.replace(/'/g, '"')).large;
   let htmlStr = `
 <div class="movie-general">
-  <img src="${data.images.large}" alt="Movie-image" class="movie-pic">
+  <img src="${image}" alt="Movie-image" class="movie-pic">
   <div class="movie-metadata">
     <p class="director-name">导演：${htmlDirectorsStr}</p>
     <p class="cast">主演：${htmlCastsStr}</p>
@@ -68,9 +66,10 @@ function renderMovieGeneral(data) {
     <p class="region">制片国家/地区：${data.countries}</p>
     <p class="lang">语言：${htmlLangStr}</p>
     <p class="debut-date">上映时间：${htmlPubdatesStr}</p>
-    <p class="score">豆瓣评分：${data.average}</p>
+    <p class="score">豆瓣评分：${data.rating}</p>
     <button class="watch-online-btn">在线观看，选取线路</button>
-  </div>`
+  </div>
+</div>`
   
   container.insertAdjacentHTML("beforeend", htmlStr);
 }
@@ -95,6 +94,7 @@ function getMovieLinks(id) {
 }
 
 function renderVideoLinks(data) {
+  let tmpContainer = document.querySelector(".movie-general")
   let htmlStr = `
     <div class="movie-links">
       <h4>电影链接 ·  ·  · </h4>
@@ -103,7 +103,7 @@ function renderVideoLinks(data) {
       <ul>
     </div>
   </div> `
-  container.insertAdjacentHTML("beforeend", htmlStr)
+  tmpContainer.insertAdjacentHTML("beforeend", htmlStr)
 }
 
 function getHtmlLinksStr(links) {
@@ -215,12 +215,11 @@ function getSimilarMovieItemsStr(items) {
   items.forEach(item => {
     let imagesInfo = item.images;
     let largeImage = JSON.parse(imagesInfo.replace(/'/g, '"')).large;
-    // TODO ratingAverage
     let tmpStr = `
       <div class="movie-item">
         <a target='_blank' href="./movie-detail.html?id=${item.id}" class="movie-item-image"><img src="${largeImage}"/></a>
         <a target='_blank' href="./movie-detail.html?id=${item.id}" class="movie-item-name">${item.title}</a>
-        <a target='_blank' href="./movie-detail.html?id=${item.id}" class="movie-item-score">评分：${9.8}</a>
+        <a target='_blank' href="./movie-detail.html?id=${item.id}" class="movie-item-score">评分：${item.rating}</a>
       </div>`
     htmlStr += tmpStr;
   })
